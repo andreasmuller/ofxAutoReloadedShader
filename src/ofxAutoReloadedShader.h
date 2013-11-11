@@ -5,7 +5,9 @@
 class ofxAutoReloadedShader : public ofShader
 {
 	
-public:
+  public:
+	ofxAutoReloadedShader();
+	~ofxAutoReloadedShader();
 	
 	// override the initialisation functions
 	bool load(string shaderName );
@@ -22,6 +24,7 @@ public:
 	
 private:
 	
+	bool bWatchingFiles;
 	bool filesChanged();
 	
 	bool loadShaderNextFrame;

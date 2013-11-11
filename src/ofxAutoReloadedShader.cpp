@@ -2,6 +2,15 @@
 #include "ofxAutoReloadedShader.h"
 
 
+
+ofxAutoReloadedShader::ofxAutoReloadedShader(){
+	bWatchingFiles = false;
+}
+
+ofxAutoReloadedShader::~ofxAutoReloadedShader(){
+	disableWatchFiles();
+}
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 //
 bool ofxAutoReloadedShader::load(string shaderName )
@@ -101,14 +110,20 @@ bool ofxAutoReloadedShader::reloadShaders()
 //
 void ofxAutoReloadedShader::enableWatchFiles()
 {
-	ofAddListener(ofEvents().update, this, &ofxAutoReloadedShader::_update );
+	if(!bWatchingFiles){
+		ofAddListener(ofEvents().update, this, &ofxAutoReloadedShader::_update );
+		bWatchingFiles = true;
+	}
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 //
 void ofxAutoReloadedShader::disableWatchFiles()
 {
-	ofRemoveListener(ofEvents().update, this, &ofxAutoReloadedShader::_update );
+	if(bWatchingFiles){
+		ofRemoveListener(ofEvents().update, this, &ofxAutoReloadedShader::_update );
+		bWatchingFiles = false;
+	}
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
