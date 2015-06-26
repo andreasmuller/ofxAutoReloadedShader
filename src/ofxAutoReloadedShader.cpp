@@ -177,11 +177,7 @@ std::time_t ofxAutoReloadedShader::getLastModified( ofFile& _file )
 {
 	if( _file.exists() )
 	{
-		Poco::File& pocoFile		= _file.getPocoFile();
-		Poco::Timestamp timestamp	= pocoFile.getLastModified();
-		std::time_t fileChangedTime = timestamp.epochTime();
-		
-		return fileChangedTime;
+        return std::filesystem::last_write_time(_file.path());
 	}
 	else
 	{
