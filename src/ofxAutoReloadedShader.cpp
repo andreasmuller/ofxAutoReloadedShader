@@ -24,6 +24,11 @@ bool ofxAutoReloadedShader::load(string vertName, string fragName, string geomNa
 {
 	unload();
 	
+    ofShader::setGeometryOutputCount(geometryOutputCount);
+    ofShader::setGeometryInputType(geometryInputType);
+    ofShader::setGeometryOutputType(geometryOutputType);
+
+    
 	// hackety hack, clear errors or shader will fail to compile
 	GLuint err = glGetError();
 	
@@ -172,11 +177,7 @@ std::time_t ofxAutoReloadedShader::getLastModified( ofFile& _file )
 {
 	if( _file.exists() )
 	{
-		Poco::File& pocoFile		= _file.getPocoFile();
-		Poco::Timestamp timestamp	= pocoFile.getLastModified();
-		std::time_t fileChangedTime = timestamp.epochTime();
-		
-		return fileChangedTime;
+        return std::filesystem::last_write_time(_file.path());
 	}
 	else
 	{
@@ -189,4 +190,22 @@ std::time_t ofxAutoReloadedShader::getLastModified( ofFile& _file )
 void ofxAutoReloadedShader::setMillisBetweenFileCheck( int _millis )
 {
 	millisBetweenFileCheck = _millis;
+}
+
+//--------------------------------------------------------------
+void ofxAutoReloadedShader::setGeometryInputType(GLenum type) {
+    ofShader::setGeometryInputType(type);
+    geometryInputType = type;
+}
+
+//--------------------------------------------------------------
+void ofxAutoReloadedShader::setGeometryOutputType(GLenum type) {
+    ofShader::setGeometryOutputType(type);
+    geometryOutputType = type;
+}
+
+//--------------------------------------------------------------
+void ofxAutoReloadedShader::setGeometryOutputCount(int count) {
+    ofShader::setGeometryOutputCount(count);
+    geometryOutputCount = count;
 }

@@ -20,7 +20,11 @@ class ofxAutoReloadedShader : public ofShader
 		
 	void setMillisBetweenFileCheck( int _millis );
 	
-	void _update(ofEventArgs &e);	
+	void _update(ofEventArgs &e);
+    
+    void setGeometryInputType(GLenum type);
+    void setGeometryOutputType(GLenum type);
+    void setGeometryOutputCount(int count);
 	
 private:
 	
@@ -43,6 +47,9 @@ private:
 	ofFile geometryShaderFile;
 	
 	vector< std::time_t > fileChangedTimes;
+    
+    GLenum geometryInputType, geometryOutputType;
+    int geometryOutputCount;
 };
 
 
