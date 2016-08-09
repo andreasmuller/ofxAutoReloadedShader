@@ -75,6 +75,8 @@ bool ofxAutoReloadedShader::load(string vertName, string fragName, string geomNa
 		setupShaderFromSource(GL_GEOMETRY_SHADER_EXT, geometryShaderBuffer.getText());
 	}
 	#endif
+
+	bindDefaults();
 	
 	return linkProgram();
 }
