@@ -11,6 +11,7 @@ class ofxAutoReloadedShader : public ofShader
 	
 	// override the initialisation functions
 	bool load(string shaderName );
+        bool load(string vertName, string fragName);
 	bool load(string vertName, string fragName, string geomName);
 	
 	bool reloadShaders();

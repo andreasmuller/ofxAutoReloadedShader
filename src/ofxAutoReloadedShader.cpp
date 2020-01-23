@@ -18,6 +18,10 @@ bool ofxAutoReloadedShader::load(string shaderName )
 	return load( shaderName + ".vert", shaderName + ".frag", shaderName + ".geom" );
 }
 
+bool ofxAutoReloadedShader::load(string vertName, string shaderName )
+{
+	return load( vertName, shaderName, "" );
+}
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 //
 bool ofxAutoReloadedShader::load(string vertName, string fragName, string geomName)
